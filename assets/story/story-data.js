@@ -1,4 +1,4 @@
-{
+window.STORY_DATA = {
   "startScene": "opening",
   "initialState": {
     "worldFeature": "empty",
@@ -868,4 +868,4 @@
       ]
     }
   }
-}
+};

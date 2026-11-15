@@ -1,4 +1,5 @@
-import {
+(() => {
+const {
   getInteractionText,
   getMiniGameHint,
   getMiniGameInfo,
@@ -7,12 +8,12 @@ import {
   getRoomBounds,
   getWorldObjects,
   WorldRenderer
-} from "./world-renderer.js";
+} = window.WorldRendererExports;
 
 const MOVEMENT_KEYS = ["w", "a", "s", "d", "arrowup", "arrowleft", "arrowdown", "arrowright"];
 const MINI_GAME_TIME_LIMIT = 20;
 
-export class GameWorld {
+class GameWorld {
   constructor(canvas, main) {
     const context = canvas.getContext("2d");
     if (!context) {
@@ -355,3 +356,6 @@ export class GameWorld {
 function clamp(value, minimum, maximum) {
   return Math.max(minimum, Math.min(maximum, value));
 }
+
+window.GameWorld = GameWorld;
+})();

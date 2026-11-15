@@ -1,3 +1,4 @@
+(() => {
 const FLOOR_COLORS = {
   garden: ["#29585b", "#183c43"],
   arcade: ["#393454", "#211e3b"],
@@ -76,23 +77,23 @@ const MINI_GAMES = {
   }
 };
 
-export function getMiniGameInfo(feature) {
+function getMiniGameInfo(feature) {
   return MINI_GAMES[feature] || null;
 }
 
-export function getMiniGameMode(state) {
+function getMiniGameMode(state) {
   return state.worldGameMode === "sequence" || state.worldGameMode === "timed"
     ? state.worldGameMode
     : "free";
 }
 
-export function getMiniGameHint(state) {
+function getMiniGameHint(state) {
   const game = getMiniGameInfo(state.worldFeature);
   if (!game) return "";
   return getMiniGameMode(state) === "timed" ? game.timedHint : game.sequenceHint;
 }
 
-export function getMiniGameProgress(state) {
+function getMiniGameProgress(state) {
   const game = getMiniGameInfo(state.worldFeature);
   if (!game || getMiniGameMode(state) === "free") return 0;
   const interacted = state.interactedObjects || [];
@@ -101,7 +102,7 @@ export function getMiniGameProgress(state) {
   ).length;
 }
 
-export function getRoomBounds(width, height, viewportWidth) {
+function getRoomBounds(width, height, viewportWidth) {
   const splitLayout = viewportWidth > 960;
   return {
     x: width * (splitLayout ? 0.04 : 0.08),
@@ -111,7 +112,7 @@ export function getRoomBounds(width, height, viewportWidth) {
   };
 }
 
-export function getWorldObjects(room, state, playerPosition, time = 0) {
+function getWorldObjects(room, state, playerPosition, time = 0) {
   const feature = FEATURE_OBJECTS[state.worldFeature] || FEATURE_OBJECTS.empty;
   const objects = [
     {
@@ -181,7 +182,7 @@ export function getWorldObjects(room, state, playerPosition, time = 0) {
   }));
 }
 
-export function getInteractionText(key, state) {
+function getInteractionText(key, state) {
   if (key === "bonus:door") {
     return "The door opens to a tiny bonus room. George is already inside, wearing his badge.";
   }
@@ -209,7 +210,7 @@ export function getInteractionText(key, state) {
   return FEATURE_MESSAGES[state.worldFeature] || FEATURE_MESSAGES.empty;
 }
 
-export class WorldRenderer {
+class WorldRenderer {
   constructor(context) {
     this.context = context;
   }
@@ -1532,3 +1533,15 @@ function accentForMood(mood) {
   };
   return colors[mood] || "#57d9eb";
 }
+
+window.WorldRendererExports = {
+  getInteractionText,
+  getMiniGameHint,
+  getMiniGameInfo,
+  getMiniGameMode,
+  getMiniGameProgress,
+  getRoomBounds,
+  getWorldObjects,
+  WorldRenderer
+};
+})();

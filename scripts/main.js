@@ -1,5 +1,6 @@
-import { loadStory, StoryPlayer } from "./story.js";
-import { GameWorld } from "./world.js";
+(() => {
+const { loadStory, StoryPlayer } = window.StoryModule;
+const { GameWorld } = window;
 
 const canvas = document.querySelector("#game");
 const main = document.querySelector("main");
@@ -22,3 +23,4 @@ loadStory()
     message.textContent = `Unable to load the story: ${error.message}`;
     world.storyRoot.replaceChildren(message);
   });
+})();

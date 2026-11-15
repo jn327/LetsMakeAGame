@@ -1,4 +1,5 @@
-export class StoryView {
+(() => {
+class StoryView {
   constructor(root) {
     this.root = root;
   }
@@ -169,3 +170,6 @@ function createLogIcon(entry) {
   }
   return icon;
 }
+
+window.StoryView = StoryView;
+})();

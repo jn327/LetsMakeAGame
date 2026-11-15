@@ -1,21 +1,16 @@
-import { StoryView } from "./story-view.js";
+(() => {
+const { StoryView } = window;
 
 const SAVE_KEY = "lets-make-a-game-story-save";
 const SAVE_VERSION = 2;
 
-export async function loadStory() {
-  const storyUrl = new URL("../assets/story/story.json", import.meta.url);
-  const response = await fetch(storyUrl);
-  if (!response.ok) {
-    throw new Error(`Could not load story (${response.status} ${response.statusText}).`);
-  }
-
-  const story = await response.json();
+async function loadStory() {
+  const story = window.STORY_DATA;
   validateStory(story);
   return story;
 }
 
-export class StoryPlayer {
+class StoryPlayer {
   constructor(root, story, onStateChange = () => {}) {
     this.root = root;
     this.view = new StoryView(root);
@@ -342,3 +337,6 @@ function validateStory(story) {
     }
   }
 }
+
+window.StoryModule = { loadStory, StoryPlayer };
+})();
