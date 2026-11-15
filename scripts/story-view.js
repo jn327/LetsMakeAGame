@@ -6,7 +6,10 @@ class StoryView {
 
   render(model) {
     const previousLog = this.root.querySelector(".story-log");
+    const atLastLine = model.lineIndex === model.scene.lines.length - 1;
+    const showingChoices = atLastLine && (model.scene.choices || !model.scene.next);
     const followLatest = !previousLog ||
+      showingChoices ||
       previousLog.scrollHeight - previousLog.scrollTop - previousLog.clientHeight <= 24;
     const previousScrollTop = previousLog ? previousLog.scrollTop : 0;
     const activeButton = document.activeElement instanceof HTMLButtonElement &&
@@ -72,8 +75,7 @@ class StoryView {
       panel.append(notice);
     }
 
-    const atLastLine = model.lineIndex === model.scene.lines.length - 1;
-    if (atLastLine && (model.scene.choices || !model.scene.next)) {
+    if (showingChoices) {
       const controls = document.createElement("div");
       controls.className = "story-controls";
       panel.append(controls);

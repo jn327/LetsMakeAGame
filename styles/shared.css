@@ -332,7 +332,7 @@ main
   {
     display               : grid;
     grid-template-columns : minmax(0, 1fr);
-    grid-template-rows    : minmax(180px, 48vh) minmax(0, 1fr);
+    grid-template-rows    : minmax(180px, 42vh) minmax(0, 1fr);
   }
 
   .game-world
@@ -393,14 +393,14 @@ main
 
   .story-controls
   {
-    max-height : 22vh;
-    gap        : 6px;
-    margin-top : 10px;
+    max-height : clamp(96px, 17vh, 152px);
+    gap        : 5px;
+    margin-top : 8px;
   }
 
   .story-button
   {
-    padding : 9px 11px;
+    padding : 7px 10px;
   }
 
   .story-button-toolbar
